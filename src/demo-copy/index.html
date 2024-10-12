@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediksi PDRB</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+</head>
+<body>
+    <header>
+        <h1>Prediksi PDRB</h1>
+        <p>Selamat datang di aplikasi prediksi PDRB menggunakan TensorFlow.js.</p>
+    </header>
+    
+    <main>
+        <section id="prediction">
+            <h2>Prediksi PDRB</h2>
+            <div>
+                <label for="year">Tahun:</label>
+                <select id="year">
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                </select>
+            </div>
+            <button id="predictButton">Prediksi</button>
+            <h3 id="result"></h3>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Prediksi PDRB. Semua hak dilindungi.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

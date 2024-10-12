@@ -1,0 +1,112 @@
+import React, { useEffect } from "react";
+import { GeoJSON } from "react-leaflet";
+
+
+export default function KabLayer({ kabGeoData, selectedProvince }) {
+
+  let lastSelectedKab = null
+
+  const kabStyle = () => {
+    return {
+      weight: 0.5,
+      opacity: 1,
+      color: 'darkgrey',
+      fillColor: '#0B666A',
+      fillOpacity: 0.5,
+    }
+  };
+
+  const kabHighlightFeature = (e) => {
+    const layer = e.target;
+    layer.setStyle({
+      weight: 0.5,
+      opacity:1,
+      color: 'lightgrey',
+      fillColor: '#074246',
+      fillOpacity: 1,
+    });
+    layer.bringToFront();
+  };
+
+  const kabResetHighlight = (e) => {
+    const layer = e.target;
+    layer.setStyle(kabStyle(e.target.feature));
+  };
+
+  const onEachKabFeature = (feature, layer) => {
+    layer.bindTooltip(
+      `${feature.properties.name}`, 
+      {
+        permanent: false, // Make the label always visible
+        direction: 'center', // Place it at the center of the feature
+        className: 'label-tooltip', // Optional: custom CSS class for styling
+      }
+    )
+
+    layer.on({
+      mouseover: (e) => {
+        if (layer !== lastSelectedKab) {
+          kabHighlightFeature(e)
+          console.log(e)
+        }
+      },      
+      mouseout: (e) => {
+        if (layer !== lastSelectedKab) {
+          kabResetHighlight(e)
+        }
+      },
+      click: (e) => {
+      
+
+        if (lastSelectedKab) {
+          kabResetHighlight({target: lastSelectedKab})
+          lastSelectedKab.bindTooltip(
+            `${feature.properties.name}`,
+            {
+              permanent: false, // Tooltip stays visible for the clicked feature
+              direction: 'center',
+              className: 'label-tooltip',
+            }
+          );
+        } else {
+
+        }
+
+        kabHighlightFeature(e)
+        console.log(e.target)
+        layer.bindTooltip(
+          `${feature.properties.name}`,
+          {
+            permanent: true, // Tooltip stays visible for the clicked feature
+            direction: 'center',
+            className: 'label-tooltip',
+          }
+        );
+
+        lastSelectedKab = layer
+
+      },
+    });
+  }
+
+
+
+  const filteredKabGeoData = kabGeoData
+  ? {
+      type: 'FeatureCollection',
+      features: kabGeoData.features.filter(
+        (feature) => feature.properties.prov_name === selectedProvince?.name
+      ),
+    }
+  : null;
+
+  useEffect(() => {
+    console.log("Filtered kab geo data:", filteredKabGeoData);
+    console.log("kab geo data:", kabGeoData);
+  }, [selectedProvince])
+  
+
+  return (
+    <GeoJSON key={selectedProvince?.name} data={filteredKabGeoData} style={kabStyle} onEachFeature={onEachKabFeature}  />
+  )
+}

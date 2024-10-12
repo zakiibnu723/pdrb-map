@@ -1,0 +1,62 @@
+
+
+.leafletMap {
+  filter: brightness(20%) grayscale(100%);
+  /* position: relative; */
+  z-index: 16;
+}
+
+body {
+  font-family: 'Josefin Sans';
+  font-weight: 300;
+  margin: 0;
+  background-color: black;
+  overflow: hidden;
+}
+
+
+
+
+
+h1, h2, h3, h4, p {
+  margin: 0;
+}
+
+.nonActive {
+  filter: brightness(30%);
+  mix-blend-mode: color-dodge;
+  border: none;
+
+}
+
+
+.label-tooltip {
+  border: none;
+  background-color: rgba(27, 27, 27, 0.811);
+  box-shadow: none;
+  color: rgb(208, 239, 242);
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 4px;
+  pointer-events: none;
+  /* text-shadow: 2px 2px 15px black; */
+  box-shadow: 12px 12px 12px black;
+  /* z-index: -1; */
+}
+
+.label-map {
+  color: #074246;
+  text-shadow: none !important;
+}
+
+
+.leaflet-interactive {
+  outline: none;
+  z-index: -12345678910;
+  /* opacity: 0; */
+}
+
+.leaflet-interactive:active {
+  filter: brightness(150%);
+}
